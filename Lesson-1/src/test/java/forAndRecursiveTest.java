@@ -14,11 +14,20 @@ public class forAndRecursiveTest {
     }
 
     @Test
-    public void fobonachiRecursivTest(){
+    public void fibonachiRecursivTest(){
         //10 число Фибоначи рекурсией
         Assert.assertEquals(34, forAndRecursive.fibRecursive(10));
 
         // число Фибоначи рекурсией
         Assert.assertEquals(514229, forAndRecursive.fibRecursive(30));
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void fibonachiNumberException(){
+        forAndRecursive.fib(48);
+    }
+    @Test(expected = ArithmeticException.class)
+    public void fibonachiRecursiveNumberException(){
+        forAndRecursive.fibRecursive(48);
     }
 }
