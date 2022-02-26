@@ -8,7 +8,7 @@ public class forAndRecursive {
 
 
     //находим число Фибоначчи циклом
-    private static int fib(int n){
+    public static int fib(int n){
         int[] arr = new int[n];
         arr[0] = 0;
         arr[1] = 1;
@@ -19,7 +19,7 @@ public class forAndRecursive {
     }
 
     //находим число Фибоначи с помощью рекурсии
-    private static int fibRecursive(int n){
+    public static int fibRecursive(int n){
         if(n==1)
             return 0;
         if(n==2)
