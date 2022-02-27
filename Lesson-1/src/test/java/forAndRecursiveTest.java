@@ -5,29 +5,34 @@ public class forAndRecursiveTest {
 
     @Test
     public void fibonachiNumberTest(){
+        forAndRecursive f=new forAndRecursive();
         //10 число Фибоначи циклом
-        Assert.assertEquals(34, forAndRecursive.fib(10));
+        Assert.assertEquals(34, f.fib(10));
 
         // число Фибоначи циклом
-        Assert.assertEquals(514229, forAndRecursive.fib(30));
+        Assert.assertEquals(514229, f.fib(30));
 
     }
 
     @Test
     public void fibonachiRecursivTest(){
+        forAndRecursive f=new forAndRecursive();
+
         //10 число Фибоначи рекурсией
-        Assert.assertEquals(34, forAndRecursive.fibRecursive(10));
+        Assert.assertEquals(34, f.fibRecursive(10));
 
         // число Фибоначи рекурсией
-        Assert.assertEquals(514229, forAndRecursive.fibRecursive(30));
+        Assert.assertEquals(514229, f.fibRecursive(30));
     }
 
     @Test(expected = ArithmeticException.class)
     public void fibonachiNumberException(){
-        forAndRecursive.fib(48);
+        forAndRecursive f=new forAndRecursive();
+        f.fib(48);
     }
     @Test(expected = ArithmeticException.class)
     public void fibonachiRecursiveNumberException(){
-        forAndRecursive.fibRecursive(48);
+        forAndRecursive f=new forAndRecursive();
+        f.fibRecursive(48);
     }
 }

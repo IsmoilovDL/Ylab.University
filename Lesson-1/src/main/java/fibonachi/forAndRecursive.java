@@ -2,13 +2,27 @@ package fibonachi;
 
 public class forAndRecursive {
     public static void main(String[] args) {
-     System.out.println(fib(10));
-     System.out.println(fibRecursive(10));
+
+    forAndRecursive f=new forAndRecursive();
+        System.out.println("Фибоначи циклом");
+        System.out.println(f.fib(46));
+
+        System.out.println("\nВремя работы простой рекурсии");
+        long simpleRecursiveTime = System.currentTimeMillis();
+        System.out.println(f.fibRecursive(46));
+        System.out.println(System.currentTimeMillis() - simpleRecursiveTime);
+
+
+        System.out.println("\nВремя работы рекурсии с массивом");
+        long RecursiveWithArrayTime = System.currentTimeMillis();
+        System.out.println(f.fibRecursive2(46));
+        System.out.println(System.currentTimeMillis() - RecursiveWithArrayTime);
+
     }
 
 
     //находим число Фибоначчи циклом
-    public static int fib(int n){
+    public int fib(int n){
         if(n>47)
             throw new ArithmeticException("Переполнения тип данных int");
         int[] arr = new int[n];
@@ -21,7 +35,7 @@ public class forAndRecursive {
     }
 
     //находим число Фибоначи с помощью рекурсии
-    public static int fibRecursive(int n){
+    public int fibRecursive(int n){
         if(n>47)
             throw new ArithmeticException("Переполнения тип данных int");
         if(n==1)
@@ -29,5 +43,25 @@ public class forAndRecursive {
         if(n==2)
             return 1;
         return fibRecursive(n-1)+fibRecursive(n-2);
+    }
+
+    //находим число Фибоначи с помощью рекурсии
+    int[] array=new int[46];
+
+    public int fibRecursive2(int n){
+
+        if(n==1) {
+            array[n - 1] = 0;
+            return 0;
+        }
+        if(n==2) {
+            array[n-1]=1;
+            return 1;
+        }
+        if(array[n-1]!=0)
+            return array[n-1];
+        int f=fibRecursive2(n-1)+fibRecursive2(n-2);
+        array[n-1]=f;
+        return f;
     }
 }
