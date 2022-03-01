@@ -45,7 +45,7 @@ public class forAndRecursive {
         return fibRecursive(n-1)+fibRecursive(n-2);
     }
 
-    //находим число Фибоначи с помощью рекурсии
+    //находим число Фибоначи с помощью рекурсии и мемоизации
     int[] array=new int[46];
 
     public int fibRecursive2(int n){
