@@ -4,7 +4,7 @@ public class gameTable {
     private String[][] tableXO=new String[3][3];
 
 
-    public gameTable(){
+    public void newGame(){
         tableXO[0][0]="*";
         tableXO[0][1]="*";
         tableXO[0][2]="*";
@@ -18,6 +18,7 @@ public class gameTable {
         tableXO[2][2]="*";
     }
 
+    //вовод таблицы
     public String getTableXO() {
         String gameTable=tableXO[0][0]+"|"+tableXO[0][1]+"|"+tableXO[0][2]+"\n"+"- - -\n"
                         +tableXO[1][0]+"|"+tableXO[1][1]+"|"+tableXO[1][2]+"\n"+"- - -\n"+
@@ -25,10 +26,17 @@ public class gameTable {
         return gameTable;
     }
 
+    //установка занчения массива
    public void setPosition(int row, int column, String value){
         tableXO[row][column]=value;
    }
 
+   //возвращает значение ячейки
+   public String getPosition(int row, int column){
+        return tableXO[row][column];
+   }
+
+   //проверка комбинации
    public boolean searchWinner(String s){
         if(s.equals(tableXO[0][0]) && s.equals(tableXO[0][1]) && s.equals(tableXO[0][2])) {
             return true;
