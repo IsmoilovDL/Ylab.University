@@ -65,5 +65,6 @@ public class Start {
         }
 
 
+        scannner.close();
     }
 }
