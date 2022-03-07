@@ -20,6 +20,7 @@ public class Start {
         game.newGame();
         System.out.println(game.getTableXO());
 
+        playerRating rating=new playerRating();
         while (true){
             System.out.println(player1+ " введи номер строки от 1 до 3");
             int row=scannner.nextInt();
@@ -30,6 +31,9 @@ public class Start {
 
             if(game.searchWinner("X")){
                 System.out.println("Победил игрок "+ player1);
+                rating.saveReting(player1);
+                System.out.println("Рейтинг игроков:");
+                System.out.println(rating.showRating()+"\n");
 
                 System.out.println("Хотите продолжать игру? 0-да 1-нет");
                 int answer=scannner.nextInt();
@@ -51,6 +55,11 @@ public class Start {
             System.out.println(game.getTableXO());
             if(game.searchWinner("0")){
                 System.out.println("Победил игрок "+ player2);
+
+                rating.saveReting(player2);
+                System.out.println("Рейтинг игроков:");
+                System.out.println(rating.showRating()+"\n");
+
                 System.out.println("Хотите продолжать игру? 0-да 1-нет");
                 int answer=scannner.nextInt();
                 if(answer==0){
