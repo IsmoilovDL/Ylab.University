@@ -1,5 +1,5 @@
 package javaRush;
-import javaRush.lavelClasses.Cat;
+import javaRush.levelClasses.Cat;
 
 import java.util.Arrays;
 import java.util.Scanner;
