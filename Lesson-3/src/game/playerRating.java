@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class playerRating {
-    private static final String failPath="C:\\Users\\Admin\\Desktop\\Ylab.University\\Lesson-2\\src\\game\\rating.txt";
+    private static final String failPath="C:\\Users\\Admin\\Desktop\\Ylab.University\\Lesson-3\\src\\game\\rating.txt";
 
     //вывод список игроков из файла
     public HashMap<String, Integer> showRating(){
