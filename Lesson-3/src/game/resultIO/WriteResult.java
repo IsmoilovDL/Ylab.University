@@ -1,47 +1,56 @@
 package game.resultIO;
 
+import game.GameStep;
+import game.Player;
+
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WriteResult {
-    public static void main(String[] args) {
-        WriteResult w =new WriteResult();
-        try {
-            w.write();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-    }
-    public void write() throws XMLStreamException {
+    private static final String failPath="C:\\Users\\Admin\\Desktop\\Ylab.University\\Lesson-3\\src\\game\\XML\\";
+
+    public void write(Player playerWinner, Player player2, ArrayList<GameStep> steps) {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = null;
-        try (FileWriter fileWriter = new FileWriter("myoutput.xml")) {
+        String fileName=failPath+"gameSteps_"+playerWinner.getName()+"_"+player2.getName()+".xml";
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
             writer = factory.createXMLStreamWriter(fileWriter);
             writer.writeStartDocument();
             writer.writeStartElement("Gameplay");
 
-            writer.writeStartElement("Player");
-                writer.writeAttribute("id", "1");
-                writer.writeAttribute("name", "Bob");
-                writer.writeAttribute("symbol", "X");
-            writer.writeEndElement();
+            //Добавляем данные первого игрока
+            writer.writeEmptyElement("Player");
+                writer.writeAttribute("id", String.valueOf(playerWinner.getId()));
+                writer.writeAttribute("name", playerWinner.getName());
+                writer.writeAttribute("symbol", playerWinner.getSymbol());
+
+            //Добавляем данные второго игрока
+            writer.writeEmptyElement("Player");
+                writer.writeAttribute("id", String.valueOf(player2.getId()));
+                writer.writeAttribute("name", player2.getName());
+                writer.writeAttribute("symbol", player2.getSymbol());
+
 
             writer.writeStartElement("Game");
+            for(GameStep step: steps) {
                 writer.writeStartElement("Step ");
-                    writer.writeAttribute("num", "1");
-                    writer.writeAttribute("playerId", "1");
+                writer.writeAttribute("num", String.valueOf(step.getId()));
+                writer.writeAttribute("playerId", String.valueOf(step.getPlayerId()));
+                writer.writeCharacters(String.valueOf(step.getRow())+" "+String.valueOf(step.getColumn()));
                 writer.writeEndElement();
+            }
             writer.writeEndElement();
 
 
             writer.writeStartElement("GameResult");
                 writer.writeEmptyElement("Player");
-                    writer.writeAttribute("id", "1");
-                    writer.writeAttribute("name", "Bob");
-                    writer.writeAttribute("symbol", "X");
+                    writer.writeAttribute("id", String.valueOf(playerWinner.getId()));
+                    writer.writeAttribute("name", playerWinner.getName());
+                    writer.writeAttribute("symbol", playerWinner.getSymbol());
             writer.writeEndElement();
 
             writer.writeEndElement();

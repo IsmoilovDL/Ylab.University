@@ -7,6 +7,7 @@ public class Player {
     private String symbol;
     public Player(){
         count++;
+        setId();
     }
 
     private void setId(){
