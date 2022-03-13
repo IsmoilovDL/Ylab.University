@@ -32,8 +32,9 @@ public class Start {
         //Рейтинг игроков
         playerRating rating=new playerRating();
 
-        //
+        //для сохранения хода игроков
         ArrayList<GameStep> steps=new ArrayList<>();
+        //объект класса для записи ходов
         WriteResult result=new WriteResult();
         while (true){
 
@@ -53,8 +54,6 @@ public class Start {
                 rating.saveReting(player1.getName());
                 result.write(player1, player2, steps);
 
-
-
                 System.out.println("Рейтинг игроков:");
                 System.out.println(rating.showRating()+"\n");
 
@@ -63,6 +62,7 @@ public class Start {
                 if(answer==0){
                     game.newGame();
                     System.out.println(game.getTableXO());
+                    steps=new ArrayList<>();
                     continue;
                 }
                 else if (answer==1){
@@ -94,6 +94,7 @@ public class Start {
                 if(answer==0){
                     game.newGame();
                     System.out.println(game.getTableXO());
+                    steps=new ArrayList<>();
                     continue;
                 }
                 else if (answer==1){

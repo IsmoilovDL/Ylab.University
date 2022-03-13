@@ -1,5 +1,6 @@
 package game;
 
+//класс используется для сохранение шагов в ArrayList
 public class GameStep {
     private static int count=0;
     private int id;

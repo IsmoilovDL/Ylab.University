@@ -14,6 +14,10 @@ public class Player {
         this.id=count;
     }
 
+    public void setId(int id){
+        this.id=id;
+    }
+
     public int getId(){
         return this.id;
     }
@@ -28,6 +32,10 @@ public class Player {
 
     public void setSymbol(String symbol){
         message(symbol);
+        this.symbol=symbol;
+    }
+
+    public void setSymbolWithoutMessage(String symbol){
         this.symbol=symbol;
     }
 
