@@ -43,8 +43,8 @@ public class Start {
             int row=scannner.nextInt();
             System.out.println(player1.getName()+ " введи номер столбца от 1 до 3");
             int column=scannner.nextInt();
-            game.setPosition(row-1,column-1, "X");
-            GameStep p1=new GameStep(row, column, player1.getName(), "X", player1.getId());
+            game.setPosition(row-1,column-1, player1.getSymbol());
+            GameStep p1=new GameStep(row, column, player1.getName(), player1.getSymbol(), player1.getId());
             steps.add(p1);
             System.out.println(game.getTableXO());
 
@@ -75,8 +75,8 @@ public class Start {
             int row2=scannner.nextInt();
             System.out.println(player2.getName()+ " введи номер столбца от 1 до 3");
             int column2=scannner.nextInt();
-            game.setPosition(row2-1,column2-1, "0");
-            GameStep p2=new GameStep(row2, column2, player2.getName(), "X", player2.getId());
+            game.setPosition(row2-1,column2-1, player2.getSymbol());
+            GameStep p2=new GameStep(row2, column2, player2.getName(), player2.getSymbol(), player2.getId());
             steps.add(p2);
             System.out.println(game.getTableXO());
 

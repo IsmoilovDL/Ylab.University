@@ -9,6 +9,7 @@ import javax.xml.stream.XMLStreamWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WriteResult {
     private static final String failPath="C:\\Users\\Admin\\Desktop\\Ylab.University\\Lesson-3\\src\\game\\XML\\";
@@ -16,7 +17,11 @@ public class WriteResult {
     public void write(Player playerWinner, Player player2, ArrayList<GameStep> steps) {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = null;
-        String fileName=failPath+"gameSteps_"+playerWinner.getName()+"_"+player2.getName()+".xml";
+
+        //генерируем имя файла
+        Date date=new Date();
+        String fileName=failPath+"gameSteps_"+playerWinner.getName()+"_"+player2.getName()+date.getTime()+".xml";
+
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             writer = factory.createXMLStreamWriter(fileWriter);
             writer.writeStartDocument();
