@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class WriteResult {
-    private static final String failPath="C:\\Users\\Admin\\Desktop\\Ylab.University\\Lesson-3\\src\\game\\XML\\";
+    private static final String failPath=".\\XML\\";
 
-    public void write(Player playerWinner, Player player2, ArrayList<GameStep> steps) {
+    public void write(Player playerWinner, Player player2, ArrayList<GameStep> steps, boolean draw) {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = null;
 
@@ -51,13 +51,19 @@ public class WriteResult {
             writer.writeEndElement();
 
 
-            writer.writeStartElement("GameResult");
+            if(draw){
+                writer.writeStartElement("GameResult");
+                    writer.writeCharacters("Draw!");
+                writer.writeEndElement();
+            }
+            else {
+                writer.writeStartElement("GameResult");
                 writer.writeEmptyElement("Player");
-                    writer.writeAttribute("id", String.valueOf(playerWinner.getId()));
-                    writer.writeAttribute("name", playerWinner.getName());
-                    writer.writeAttribute("symbol", playerWinner.getSymbol());
-            writer.writeEndElement();
-
+                writer.writeAttribute("id", String.valueOf(playerWinner.getId()));
+                writer.writeAttribute("name", playerWinner.getName());
+                writer.writeAttribute("symbol", playerWinner.getSymbol());
+                writer.writeEndElement();
+            }
             writer.writeEndElement();
             writer.writeEndDocument();
 

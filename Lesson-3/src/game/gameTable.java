@@ -66,4 +66,16 @@ public class gameTable {
             return false;
 
    }
+
+   public boolean Draw(){
+        boolean element=true;
+
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                if(tableXO[i][j]=="*")
+                    element=false;
+            }
+        }
+        return element;
+   }
 }

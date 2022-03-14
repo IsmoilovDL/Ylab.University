@@ -1,9 +1,12 @@
 Куруш 1
+Drew 1
+Alex 1
 Али 1
 Jake 2
 311 2
 311215 1
-Bob 1
+Tom 1
+Bob 4
 Пари 2
 London 1
-Ali 7
+Ali 9

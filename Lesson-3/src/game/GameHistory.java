@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameHistory {
-    private static final String FILENAME = "C:\\Users\\Admin\\Desktop\\Ylab.University\\Lesson-3\\src\\game\\XML\\";
+    private static final String FILENAME = ".\\XML\\";
 
     public static void main(String[] args) {
         File directory=new File(FILENAME);
@@ -57,9 +57,12 @@ public class GameHistory {
                 System.out.println(gameTable.getTableXO()+"\n");
             }
         }
-        Player player3=result.getPlayersList().get(2);
-
-        System.out.println("Player -> "+player3.getName()+" is winner as '"+player3.getSymbol()+"'! ");
+        if(result.getPlayersList().size()<3) {
+            System.out.println("Draw!");
+        }else {
+            Player player3 = result.getPlayersList().get(2);
+            System.out.println("Player -> " + player3.getName() + " is winner as '" + player3.getSymbol() + "'! ");
+        }
     }
 }
 class FilesList{
