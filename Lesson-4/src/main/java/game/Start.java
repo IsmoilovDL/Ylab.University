@@ -1,5 +1,6 @@
 package game;
 
+import game.resultIO.WriteJSON;
 import game.resultIO.WriteXML;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Start {
         ArrayList<GameStep> steps=new ArrayList<>();
         //объект класса для записи ходов
         WriteXML result=new WriteXML();
+        WriteJSON resultJOSN=new WriteJSON();
         while (true){
 
             //ход первого игрока
@@ -64,11 +66,15 @@ public class Start {
                 if(game.Draw()){
                     System.out.println("Draw!");
                     result.write(player1, player2, steps, true);
+                    resultJOSN.write(player1, player2, steps, true);
+
                 }
                 else {
                     System.out.println("Победил игрок " + player1.getName());
                     rating.saveReting(player1.getName());
                     result.write(player1, player2, steps, false);
+                    resultJOSN.write(player1, player2, steps, false);
+
                 }
                 System.out.println("Рейтинг игроков:");
                 System.out.println(rating.showRating()+"\n");
@@ -111,11 +117,15 @@ public class Start {
                 if(game.Draw()){
                     System.out.println("Draw!");
                     result.write(player2, player1, steps, true);
+                    resultJOSN.write(player2, player1, steps, true);
+
                 }
                 else {
                     System.out.println("Победил игрок " + player2.getName());
                     rating.saveReting(player2.getName());
                     result.write(player2, player1, steps, false);
+                    resultJOSN.write(player2, player1, steps, false);
+
                 }
                 System.out.println("Рейтинг игроков:");
                 System.out.println(rating.showRating()+"\n");
