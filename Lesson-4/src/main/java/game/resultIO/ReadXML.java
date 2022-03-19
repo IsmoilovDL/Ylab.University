@@ -12,9 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class ReadResult {
+public class ReadXML {
 
-    public ReadResult(String filePath){
+    public ReadXML(String filePath){
         try {
             ReadXMLFile(Paths.get(filePath));
 

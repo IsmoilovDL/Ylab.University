@@ -2,6 +2,7 @@ package game.resultIO;
 
 import game.GameStep;
 import game.Player;
+import game.interfaceIO.Write;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -11,9 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class WriteResult {
+public class WriteXML implements Write{
     private static final String failPath=".\\XML\\";
 
+    @Override
     public void write(Player playerWinner, Player player2, ArrayList<GameStep> steps, boolean draw) {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = null;

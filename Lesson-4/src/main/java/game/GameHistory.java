@@ -1,6 +1,6 @@
 package game;
 
-import game.resultIO.ReadResult;
+import game.resultIO.ReadXML;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class GameHistory {
 
     public static void showSteps(String path){
 
-        ReadResult result=new ReadResult(path);
+        ReadXML result=new ReadXML(path);
         Player player1=result.getPlayersList().get(0);
         Player player2=result.getPlayersList().get(1);
 

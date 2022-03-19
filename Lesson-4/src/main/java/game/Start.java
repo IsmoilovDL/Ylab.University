@@ -1,6 +1,6 @@
 package game;
 
-import game.resultIO.WriteResult;
+import game.resultIO.WriteXML;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -35,7 +35,7 @@ public class Start {
         //для сохранения хода игроков
         ArrayList<GameStep> steps=new ArrayList<>();
         //объект класса для записи ходов
-        WriteResult result=new WriteResult();
+        WriteXML result=new WriteXML();
         while (true){
 
             //ход первого игрока
