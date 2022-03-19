@@ -1,6 +1,7 @@
 package game.resultIO;
 import game.GameStep;
 import game.Player;
+import game.interfaceIO.Read;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -12,9 +13,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class ReadXML {
+public class ReadXML implements Read {
 
     public ReadXML(String filePath){
+        readFile(filePath);
+    }
+
+    @Override
+    public void readFile(String filePath){
         try {
             ReadXMLFile(Paths.get(filePath));
 
@@ -22,7 +28,6 @@ public class ReadXML {
             e.printStackTrace();
         }
     }
-
 
 
     private ArrayList<Player> playersList;
