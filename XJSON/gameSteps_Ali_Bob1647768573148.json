@@ -2,12 +2,12 @@
   "Player": [
     {
       "id": 1,
-      "name": "test",
+      "name": "Ali",
       "symbol": "X"
     },
     {
       "id": 2,
-      "name": "test2",
+      "name": "Bob",
       "symbol": "0"
     }
   ],
@@ -43,7 +43,7 @@
   "GameResult": {
     "Player": {
       "id": 1,
-      "name": "test",
+      "name": "Ali",
       "symbol": "X"
     }
   }

@@ -22,6 +22,10 @@ public class Gameplay {
     public void setWinnwer(Player player){
         GameResult=new Winner(player);
     }
+
+    public ArrayList<game.Player> getPlayer() {
+        return Player;
+    }
 }
 
 class Game{

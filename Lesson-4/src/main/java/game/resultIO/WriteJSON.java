@@ -12,6 +12,7 @@ import game.jsonStructurClasses.Gameplay;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WriteJSON implements Write {
 
@@ -22,14 +23,16 @@ public class WriteJSON implements Write {
         Gameplay.setPlayers(playerWinner);
         Gameplay.setPlayers(player2);
         Gameplay.setSteps(steps);
-        Gameplay.setWinnwer(playerWinner);
+        if(!draw) {
+            Gameplay.setWinnwer(playerWinner);
+        }
         Gson gson=new Gson();
-        //System.out.println(gson.toJson(Gameplay));
         Gson gson1 = new GsonBuilder().setPrettyPrinting().create();
         JsonElement je = JsonParser.parseString(gson1.toJson(Gameplay));
         String prettyJsonString = gson1.toJson(je);
+        Date date=new Date();
 
-        try (JsonWriter writer = new JsonWriter(new FileWriter(".\\XJSON\\user.json"))) {
+        try (JsonWriter writer = new JsonWriter(new FileWriter(".\\XJSON\\gameSteps_"+playerWinner.getName()+"_"+player2.getName()+date.getTime()+".json"))) {
 
             writer.beginObject();
             writer.name("Gameplay").jsonValue(prettyJsonString);
