@@ -14,12 +14,12 @@ public class PlayerDeserializer implements JsonDeserializer<Gameplay> {
     @Override
     public Gameplay deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 
-    JsonElement Gameplay=jsonElement.getAsJsonObject().get("Gameplay");
+        JsonElement Gameplay=jsonElement.getAsJsonObject().get("Gameplay");
 
-    //Получаем JSON объект игроков
-    JsonElement Player=Gameplay.getAsJsonObject().get("Player");
-    JsonElement Player1=Player.getAsJsonArray().get(0);
-    JsonElement Player2=Player.getAsJsonArray().get(1);
+        //Получаем JSON объект игроков
+        JsonElement Player=Gameplay.getAsJsonObject().get("Player");
+        JsonElement Player1=Player.getAsJsonArray().get(0);
+        JsonElement Player2=Player.getAsJsonArray().get(1);
 
         //Добавляем первого игрока
         Player playerObject1=new Player();
@@ -37,7 +37,7 @@ public class PlayerDeserializer implements JsonDeserializer<Gameplay> {
         gameplay.setPlayers(playerObject1);
         gameplay.setPlayers(playerObject2);
 
-        //Получаем список ходов
+        //Получаем JSON объект список ходов
         JsonElement Step=Gameplay.getAsJsonObject().get("Game").getAsJsonObject().get("Step");
 
         ArrayList<GameStep> steps=new ArrayList<>();
@@ -52,6 +52,24 @@ public class PlayerDeserializer implements JsonDeserializer<Gameplay> {
             steps.add(stepItem);
         }
         gameplay.setSteps(steps);
+
+
+        //Получаем JSON объект результат игры
+        JsonElement GameResult=Gameplay.getAsJsonObject().get("GameResult");
+        if(GameResult!=null) {
+            JsonElement winner = GameResult.getAsJsonObject().get("Player");
+            //получаем атрибути объекта победителья
+            int winnerId = Integer.parseInt(winner.getAsJsonObject().get("id").toString());
+            String winnerName = trimSymbols(winner.getAsJsonObject().get("name").toString());
+            String winnerSymbol = trimSymbols(winner.getAsJsonObject().get("symbol").toString());
+            //создаем объект победителья
+            Player playerWinner = new Player();
+            playerWinner.setId(winnerId);
+            playerWinner.setName(winnerName);
+            playerWinner.setSymbolWithoutMessage(winnerSymbol);
+            //добавляем победителя в класс Gameplay
+            gameplay.setWinnwer(playerWinner);
+        }
         return gameplay;
     }
 

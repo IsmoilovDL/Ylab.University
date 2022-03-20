@@ -32,6 +32,14 @@ public class Gameplay {
     public ArrayList<Step>  getGame() {
         return this.Game.getStep();
     }
+    public Player getWinner(){
+        //Если нету победителя игры то возвращаем null
+        try {
+            return this.GameResult.getPlayer();
+        }catch (NullPointerException exception){
+            return null;
+        }
+    }
 }
 
 class Game{

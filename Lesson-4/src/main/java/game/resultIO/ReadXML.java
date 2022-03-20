@@ -14,7 +14,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ReadXML implements Read {
-
+    private ArrayList<Player> playersList;
+    private ArrayList<GameStep> stepsList;
     public ReadXML(String filePath){
         readFile(filePath);
     }
@@ -29,9 +30,6 @@ public class ReadXML implements Read {
         }
     }
 
-
-    private ArrayList<Player> playersList;
-    private ArrayList<GameStep> stepsList;
 
     public ArrayList<Player> getPlayersList() {
         return playersList;
