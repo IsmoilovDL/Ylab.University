@@ -11,14 +11,17 @@ public class Gameplay {
     private Game Game;
     private Winner GameResult;
 
+    //Список игроков
     public void setPlayers(Player player) {
         Player.add(player);
     }
 
+    //Список ходов
     public void setSteps(ArrayList<GameStep> steps) {
-        Game=new Game(steps);
+        this.Game=new Game(steps);
     }
 
+    //Побидитель
     public void setWinnwer(Player player){
         GameResult=new Winner(player);
     }
@@ -26,10 +29,17 @@ public class Gameplay {
     public ArrayList<game.Player> getPlayer() {
         return Player;
     }
+    public ArrayList<Step>  getGame() {
+        return this.Game.getStep();
+    }
 }
 
 class Game{
+
     public ArrayList<Step> Step=new ArrayList<>();
+    public ArrayList<Step> getStep() {
+        return Step;
+    }
 
     public Game(ArrayList<GameStep> steps){
         int id=1;
@@ -45,39 +55,13 @@ class Game{
 
 }
 
-class Step{
-    public int num;
-    public int playerId;
-    public String text;
 
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-}
 class Winner{
     Player Player;
     public Winner(Player winner){
         this.Player=winner;
+    }
+    public game.Player getPlayer() {
+        return Player;
     }
 }
