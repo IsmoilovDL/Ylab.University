@@ -20,6 +20,7 @@ public class ReadJSON implements Read {
     private ArrayList<GameStep> stepsList;
     private Player winner;
 
+    public ReadJSON(){}
     public ReadJSON(String filePath){
         readFile(filePath);
     }
@@ -45,6 +46,18 @@ public class ReadJSON implements Read {
         }
     }
 
+    public void readFileFromClient(String file){
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Gameplay.class, new PlayerDeserializer())
+                .create();
+        Gameplay bandIsBack = gson.fromJson(file, Gameplay.class);
+
+        setPlayersList(bandIsBack.getPlayer());
+        setStepsList(bandIsBack.getGame());
+        if(bandIsBack.getWinner()!=null)
+            setWinner(bandIsBack.getWinner());
+
+    }
     private void setPlayersList(ArrayList<Player> players){
         this.playersList=players;
     }

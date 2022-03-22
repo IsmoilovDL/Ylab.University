@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <title> Загрузка json файла на сервер!</title>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   </head>
+
+   <body>
+      <h1>Загрузка файла на сервер!</h1>
+      <form class="" action="http://localhost:8080/files" method="post">
+         <textarea id="textarea" name="text"></textarea> <br>
+         <input type="file" id="inputfile"> <br>
+         <input type="submit" name="" value="Отправить">
+       </form>
+   </body>
+
+   <script>
+   //ЗАПОЛНЯЕМ textarea ПОЛЕ ИЗ ФАЙЛА
+       var fileData;
+       inputfile.onchange = function () {
+         var file = this.files[0],
+             reader = new FileReader;
+
+         reader.onloadend = function (evt) { textarea.value = reader.result; };
+
+          reader.readAsText(file);
+      };
+   </script>
+
+<style media="screen">
+h1{
+  text-align: center;
+}
+  form{
+    width: 500px;
+    background-color: #ccc;
+    padding-top: 30px;
+    padding-bottom: 30px;
+margin: 0 auto;
+  }
+  input{
+    margin-left: 15%;
+  }
+  input[type="submit"]{
+    margin-top: 20px;
+  }
+  #textarea{
+    width: 70%;
+    height:300px;
+    margin-left: 15%
+  }
+</style>
+
+ </html>
