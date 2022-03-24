@@ -1,27 +1,21 @@
 package webApp.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import game.GameStep;
 import game.Player;
 import game.gameTable;
-import game.jsonStructurClasses.Gameplay;
-import game.jsonStructurClasses.PlayerDeserializer;
 import game.resultIO.ReadJSON;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("files")
-public class GameController {
+@RequestMapping("upload-file")
+public class UploadFileController {
     @GetMapping
     public String list(){
         return "Index Page";
     }
 
     @PostMapping
-    public String create(@RequestParam String text){
+    public String upload(@RequestParam String text){
 
         ReadJSON result=new ReadJSON();
         result.readFileFromClient(text);
