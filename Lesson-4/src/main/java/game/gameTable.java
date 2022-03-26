@@ -26,6 +26,9 @@ public class gameTable {
         return gameTable;
     }
 
+    public String[][] getTableArray(){
+        return tableXO;
+    }
     //установка занчения массива
    public void setPosition(int row, int column, String value){
         tableXO[row][column]=value;
