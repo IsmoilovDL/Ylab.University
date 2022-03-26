@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import game.Player;
 import game.game;
 import game.gameTable;
+import game.GameStep;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,7 +12,11 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/gameplay")
 public class GameplayController {
-ArrayList<Player> players=new ArrayList<>();
+    Gson gson=new Gson();
+    game game=new game();
+    ArrayList<Player> players=new ArrayList<>();
+    ArrayList<GameStep> steps=new ArrayList<>();
+
     @GetMapping
     public String index(){
         return "Index Page";
@@ -19,20 +24,17 @@ ArrayList<Player> players=new ArrayList<>();
 
     @GetMapping("new")
     public String newGame(){
-       game game=new game();
         game.setGameTable(new gameTable());
         game.setPlayer1(players.get(0));
         game.setPlayer2(players.get(1));
 
-        Gson gson=new Gson();
         return gson.toJson(game);
     }
 
     @PostMapping("player")
-    public String newPlayer(@RequestParam String text){
+    public String newPlayer(@RequestParam String name){
         Player player=new Player();
-        player.setName(text);
-        Gson gson=new Gson();
+        player.setName(name);
 
         players.add(player);
         return gson.toJson(player);
@@ -40,7 +42,36 @@ ArrayList<Player> players=new ArrayList<>();
 
     @GetMapping("players")
     public String playerSList(){
-        Gson gson=new Gson();
         return gson.toJson(players);
     }
+
+    @GetMapping("/current-step")
+    public String currentStep(){
+        int stepSize=steps.size();
+        if(stepSize==0){
+            return gson.toJson(players.get(0));
+        }else if(steps.get(stepSize-1).getPlayerId()==1){
+            return gson.toJson(players.get(1));
+        }else {
+            return gson.toJson(players.get(0));
+        }
+
+
+    }
+
+    @PostMapping("step")
+    public String step(@RequestParam int playerId){
+       gameTable table= game.getGameTable();
+       Player player;
+       if(playerId==1){
+           player=game.getPlayer1();
+       } else {
+           player=game.getPlayer2();
+       }
+        table.setPosition(0,0,player.getSymbol());
+        steps.add(new GameStep(0,0, player.getName(), player.getSymbol(), player.getId()));
+        return gson.toJson(table.getTableArray());
+
+    }
+
 }
