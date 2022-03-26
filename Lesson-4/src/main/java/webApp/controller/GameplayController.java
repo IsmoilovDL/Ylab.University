@@ -60,7 +60,7 @@ public class GameplayController {
     }
 
     @PostMapping("step")
-    public String step(@RequestParam int playerId){
+    public String step(@RequestParam int playerId, @RequestParam int row, @RequestParam int column){
        gameTable table= game.getGameTable();
        Player player;
        if(playerId==1){
@@ -68,8 +68,15 @@ public class GameplayController {
        } else {
            player=game.getPlayer2();
        }
-        table.setPosition(0,0,player.getSymbol());
-        steps.add(new GameStep(0,0, player.getName(), player.getSymbol(), player.getId()));
+       if(table.getPosition(row,column)!=null){
+           return "Ячейка заята, выберити другую!";
+       }
+
+        table.setPosition(row,column,player.getSymbol());
+        steps.add(new GameStep(row,column, player.getName(), player.getSymbol(), player.getId()));
+        if(game.getGameTable().searchWinner(player.getSymbol())){
+            return "Palyer: "+player.getName()+" win!";
+        }
         return gson.toJson(table.getTableArray());
 
     }
