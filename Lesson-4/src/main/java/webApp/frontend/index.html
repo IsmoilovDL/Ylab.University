@@ -82,13 +82,13 @@
                         $("#box-2").append(tableXO[0][1]);
                         $("#box-3").append(tableXO[0][2]);
 
-                        $("#box-1").append(tableXO[1][0]);
-                        $("#box-2").append(tableXO[1][1]);
-                        $("#box-3").append(tableXO[1][2]);
+                        $("#box-4").append(tableXO[1][0]);
+                        $("#box-5").append(tableXO[1][1]);
+                        $("#box-6").append(tableXO[1][2]);
 
-                        $("#box-1").append(tableXO[2][0]);
-                        $("#box-2").append(tableXO[2][1]);
-                        $("#box-3").append(tableXO[2][2]);
+                        $("#box-7").append(tableXO[2][0]);
+                        $("#box-8").append(tableXO[2][1]);
+                        $("#box-9").append(tableXO[2][2]);
                        currentStep();
                    }
                });
@@ -102,19 +102,23 @@
                     dataType: 'json',
                     data: $('#step').serialize(),
                     success: function(data) {
-                        currentStep();
-                        $("#box-1").empty();
-                        $("#box-1").append(data[0][0]);
-                        $("#box-2").append(data[0][1]);
-                        $("#box-3").append(data[0][2]);
 
-                        $("#box-1").append(data[1][0]);
-                        $("#box-2").append(data[1][1]);
-                        $("#box-3").append(data[1][2]);
 
-                        $("#box-1").append(data[2][0]);
-                        $("#box-2").append(data[2][1]);
-                        $("#box-3").append(data[2][2]);
+                        if (data.hasOwnProperty('Player')) {
+                            console.log(data);
+                        }else {
+                            currentStep();
+                            $(".box").empty();
+                            $("#box-1").append(data[0][0]);
+                            $("#box-2").append(data[0][1]);
+                            $("#box-3").append(data[0][2]);
+                            $("#box-4").append(data[1][0]);
+                            $("#box-5").append(data[1][1]);
+                            $("#box-6").append(data[1][2]);
+                            $("#box-7").append(data[2][0]);
+                            $("#box-8").append(data[2][1]);
+                            $("#box-9").append(data[2][2]);
+                        }
                     }
                 });
 

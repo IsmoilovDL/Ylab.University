@@ -5,6 +5,7 @@ import game.Player;
 import game.game;
 import game.gameTable;
 import game.GameStep;
+import game.jsonStructurClasses.Winner;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -76,7 +77,8 @@ public class GameplayController {
         table.setPosition(row,column,player.getSymbol());
         steps.add(new GameStep(row,column, player.getName(), player.getSymbol(), player.getId()));
         if(game.getGameTable().searchWinner(player.getSymbol())){
-            return "Palyer: "+player.getName()+" win!";
+            Winner winner =new Winner(player);
+            return gson.toJson(winner);
         }
         return gson.toJson(table.getTableArray());
 

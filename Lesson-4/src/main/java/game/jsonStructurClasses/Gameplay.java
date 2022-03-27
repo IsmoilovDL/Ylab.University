@@ -64,12 +64,3 @@ class Game{
 }
 
 
-class Winner{
-    Player Player;
-    public Winner(Player winner){
-        this.Player=winner;
-    }
-    public game.Player getPlayer() {
-        return Player;
-    }
-}
