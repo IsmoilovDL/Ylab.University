@@ -1,54 +1,78 @@
 <!DOCTYPE html>
 <html>
    <head>
-     <title> Загрузка json файла на сервер!</title>
+     <title> Игра X/O</title>
      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
    </head>
 
    <body>
-      <h1>Загрузка файла на сервер!</h1>
-      <form class="" action="http://localhost:8080/upload-file" method="post">
-         <textarea id="textarea" name="text"></textarea> <br>
-         <input type="file" id="inputfile"> <br>
-         <input type="submit" name="" value="Отправить">
+   <h1>Игра Х/0</h1>
+   <div class="create-block">
+        <div id="players-container">
+            <h4>Список игроков</h4>
+            <div class="item"></div>
+        </div>
+
+       <form  method="post">
+       <label >Имя игрока
+       </label><br>
+         <input type="text" name="name">
+
+       <input type="submit" value="Создать" id="create">
        </form>
+   </div>
+
    </body>
 
    <script>
-   //ЗАПОЛНЯЕМ textarea ПОЛЕ ИЗ ФАЙЛА
-       var fileData;
-       inputfile.onchange = function () {
-         var file = this.files[0],
-             reader = new FileReader;
+       $( document ).ready(function() {
 
-         reader.onloadend = function (evt) { textarea.value = reader.result; };
+            function players() {
+                $('.item').empty();
+                $.ajax({
+                    url: 'http://localhost:8080/gameplay/players',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var key in data) {
+                            console.log(data[key]['name']);
+                            $(".item").append("<div class=\"player\">" + data[key]['name'] + "</div>");
+                        }
+                    }
+                });
+            }
+           players();
+           $("#create").click(function (event){
+               event.preventDefault();
+               $.ajax({
+                   url: 'http://localhost:8080/gameplay/player',
+                   type: 'post',
+                   dataType: 'html',
+                   data: $('form').serialize(),
+                   success: function(data) {
+                       console.log(data);
+                       players();
 
-          reader.readAsText(file);
-      };
+                   }
+               });
+           });
+       });
    </script>
 
 <style media="screen">
-h1{
-  text-align: center;
-}
-  form{
-    width: 500px;
-    background-color: #ccc;
-    padding-top: 30px;
-    padding-bottom: 30px;
-margin: 0 auto;
-  }
-  input{
-    margin-left: 15%;
-  }
-  input[type="submit"]{
-    margin-top: 20px;
-  }
-  #textarea{
-    width: 70%;
-    height:300px;
-    margin-left: 15%
-  }
+    #players-container{
+        width: 300px;
+        background: #cccccc;
+        padding: 30px;
+    }
+    .create-block{
+        display: flex;
+    }
+    .create-block form{
+        padding: 30px;
+    }
+
 </style>
 
  </html>

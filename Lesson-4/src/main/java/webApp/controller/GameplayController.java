@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/gameplay")
+@CrossOrigin
 public class GameplayController {
     Gson gson=new Gson();
     game game=new game();
