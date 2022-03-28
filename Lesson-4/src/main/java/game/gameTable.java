@@ -75,7 +75,7 @@ public class gameTable {
 
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
-                if(tableXO[i][j]=="*")
+                if(tableXO[i][j]==null)
                     element=false;
             }
         }

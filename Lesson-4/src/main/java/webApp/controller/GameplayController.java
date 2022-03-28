@@ -5,6 +5,7 @@ import game.Player;
 import game.game;
 import game.gameTable;
 import game.GameStep;
+import game.jsonStructurClasses.Message;
 import game.jsonStructurClasses.Winner;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,15 +72,30 @@ public class GameplayController {
            player=game.getPlayer2();
        }
        if(table.getPosition(row,column)!=null){
-           return "Ячейка заята, выберити другую!";
+            Message message=new Message();
+            message.setType("error");
+            message.setMessage("Ячейка заята, выберити другую!");
+           return gson.toJson(message);
        }
+
 
         table.setPosition(row,column,player.getSymbol());
         steps.add(new GameStep(row,column, player.getName(), player.getSymbol(), player.getId()));
-        if(game.getGameTable().searchWinner(player.getSymbol())){
-            Winner winner =new Winner(player);
-            return gson.toJson(winner);
+
+        if(game.getGameTable().searchWinner(player.getSymbol()) || game.getGameTable().Draw()){
+
+            Message message=new Message();
+            if(game.getGameTable().Draw()){
+                message.setType("draw");
+                message.setMessage("Game is Draw!");
+            }
+            else {
+                message.setType("win");
+                message.setMessage("Player " + player.getName() + " win by symbol " + player.getSymbol());
+            }
+            return gson.toJson(message);
         }
+
         return gson.toJson(table.getTableArray());
 
     }
