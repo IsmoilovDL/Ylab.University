@@ -1,12 +1,3 @@
-Drew 1
-Lesson4 1
-p1 2
-1 5
-pretty 1
-Bob 2
-test 1
-Draw 1
-Ronald 1
-Pari 3
-ALi 1
-Ali 11
+Tom 1
+Bob 1
+Ali 4

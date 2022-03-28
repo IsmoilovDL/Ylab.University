@@ -50,6 +50,10 @@
 
            <div class="message"></div>
        </div>
+       <div class="rating-container">
+<h4>Рейтинг игроков:</h4>
+           <div class="rating"></div>
+       </div>
    </div>
 
    </body>
@@ -57,7 +61,7 @@
    <script>
        $( document ).ready(function() {
            players();
-
+           rating();
            $("#create").click(function (event){
                event.preventDefault();
                $.ajax({
@@ -104,14 +108,12 @@
                     dataType: 'json',
                     data: $('#step').serialize(),
                     success: function(data) {
-
-
-
                         if (data.hasOwnProperty('message')) {
                             console.log(data['type']);
                             if(data['type']==="win"){
                                 $(".message").empty();
                                 $(".message").append(data['message']);
+                                rating();
                             }
                             if(data['type']==="error"){
                                 $(".message").empty();
@@ -163,6 +165,20 @@
                });
            }
 
+           function rating() {
+               $('.rating').empty();
+               $.ajax({
+                   url: 'http://localhost:8080/gameplay/rating',
+                   type: 'get',
+                   dataType: 'json',
+                   success: function (data) {
+                       for (var key in data) {
+                           $(".rating").append("<div >" + key+" - " +data[key]+"</div>");
+                       }
+                   }
+               });
+           }
+
            function currentStep(){
                $('#current-step').empty();
                $.ajax({
@@ -182,6 +198,9 @@
 
 
 <style media="screen">
+    .rating-container{
+        padding-left: 30px;
+    }
     .message{
         color: #fff;
         height: 50px;
@@ -211,6 +230,7 @@
         background: #a8f3f3;
         float: left;
         margin: 3px;
+        text-align: center;
     }
     .box.active{
         background: #458888 !important;

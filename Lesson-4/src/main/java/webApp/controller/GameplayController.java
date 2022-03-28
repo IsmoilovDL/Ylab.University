@@ -6,7 +6,7 @@ import game.game;
 import game.gameTable;
 import game.GameStep;
 import game.jsonStructurClasses.Message;
-import game.jsonStructurClasses.Winner;
+import game.playerRating;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -62,6 +62,12 @@ public class GameplayController {
 
     }
 
+    @GetMapping("/rating")
+    public String getRating(){
+        playerRating rating=new playerRating();
+        return gson.toJson(rating.showRating());
+    }
+
     @PostMapping("step")
     public String step(@RequestParam int playerId, @RequestParam int row, @RequestParam int column){
        gameTable table= game.getGameTable();
@@ -92,6 +98,9 @@ public class GameplayController {
             else {
                 message.setType("win");
                 message.setMessage("Player " + player.getName() + " win by symbol " + player.getSymbol());
+
+                playerRating rating=new playerRating();
+                rating.saveReting(player.getName());
             }
             return gson.toJson(message);
         }
