@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game History</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div>
+    Если вы это видите, значит frontend еще не доделан :(
+    <p>http://localhost:8080/history  Возвращает список всех файлов</p>
+    <p>http://localhost:8080/history/files  Возвращает историю игры из выбранного файла</p>
+</div>
+<h4>История игры!</h4>
+<div class="files">
+
+</div>
+<div class="history">
+
+</div>
+</body>
+
+<script>
+    $( document ).ready(function() {
+        $(".files").click(function (){
+            $(".item").removeClass('active');
+            $(this).addClass('active');
+        });
+
+        files();
+        history();
+        function files() {
+            $('.files').empty();
+            $.ajax({
+                url: 'http://localhost:8080/history',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    for (var key in data) {
+                        $(".files").append("<div class='item'>" +data[key]+"</div>");
+                    }
+                }
+            });
+        }
+
+        function history() {
+            $('.history').empty();
+            $.ajax({
+                url: 'http://localhost:8080/history/files',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    $(".history").append(JSON.stringify(data));
+
+                }
+            });
+        }
+
+
+
+    });
+
+</script>
+
+<style>
+    .files{
+        width: 400px;
+    }
+    .files div{
+        background: #458888;
+        padding: 15px 10px;
+        margin-top: 15px;
+    }
+    .files div.active{
+        background: #9dcbcb;
+    }
+</style>
+</html>
