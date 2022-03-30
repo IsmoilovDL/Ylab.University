@@ -7,6 +7,7 @@ import game.gameTable;
 import game.GameStep;
 import game.jsonStructurClasses.Message;
 import game.playerRating;
+import game.resultIO.WriteJSON;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class GameplayController {
     game game=new game();
     ArrayList<Player> players=new ArrayList<>();
     ArrayList<GameStep> steps=new ArrayList<>();
+    WriteJSON writeJSON=new WriteJSON();
 
     @GetMapping
     public String index(){
@@ -94,13 +96,24 @@ public class GameplayController {
             if(game.getGameTable().Draw()){
                 message.setType("draw");
                 message.setMessage("Game is Draw!");
+                writeJSON.write(players.get(0), players.get(1), steps,true);
+                steps=new ArrayList<>();
             }
             else {
                 message.setType("win");
                 message.setMessage("Player " + player.getName() + " win by symbol " + player.getSymbol());
-
                 playerRating rating=new playerRating();
                 rating.saveReting(player.getName());
+
+                Player player2;
+                if(player.getId()==1){
+                    player2=players.get(1);
+                }else {
+                    player2=players.get(0);
+                }
+                writeJSON.write(player, player2, steps,false);
+                steps=new ArrayList<>();
+
             }
             return gson.toJson(message);
         }
