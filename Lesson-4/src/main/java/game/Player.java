@@ -31,7 +31,6 @@ public class Player {
     }
 
     public void setSymbol(String symbol){
-        message(symbol);
         this.symbol=symbol;
     }
 
@@ -43,7 +42,5 @@ public class Player {
         return this.symbol;
     }
 
-    private void message(String symbol){
-        System.out.println(this.getName()+ ", добро пожаловать в игру!\n ты играешь "+symbol+"-ом\n");
-    }
+
 }
