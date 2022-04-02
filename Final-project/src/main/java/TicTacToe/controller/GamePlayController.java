@@ -1,17 +1,117 @@
 package TicTacToe.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import TicTacToe.sevices.Game;
+import TicTacToe.sevices.gameLogic.GameTable;
+import TicTacToe.sevices.player.Player;
+import TicTacToe.utils.GameStep;
+import TicTacToe.utils.jsonStructurClasses.Message;
+import TicTacToe.utils.resultIO.WriteJSON;
+import com.google.gson.Gson;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/gameplay")
 @CrossOrigin
 public class GamePlayController {
 
+    Gson gson=new Gson();
+    Game game=new Game();
+    ArrayList<Player> players=new ArrayList<>();
+    ArrayList<GameStep> steps=new ArrayList<>();
+    WriteJSON writeJSON=new WriteJSON();
+
     @GetMapping
-    public String Index(){
+    public String index(){
         return "Index Page";
+    }
+
+    @GetMapping("new")
+    public String newGame(){
+        game.setGameTable(new GameTable());
+        game.setPlayer1(players.get(0));
+        game.setPlayer2(players.get(1));
+
+        return gson.toJson(game);
+    }
+
+    @PostMapping("player")
+    public String newPlayer(@RequestParam String name){
+        Player player=new Player();
+        player.setName(name);
+
+        players.add(player);
+        return gson.toJson(player);
+    }
+
+    @GetMapping("players")
+    public String playerSList(){
+        return gson.toJson(players);
+    }
+
+    @GetMapping("/current-step")
+    public String currentStep(){
+        int stepSize=steps.size();
+        if(stepSize==0){
+            return gson.toJson(players.get(0));
+        }else if(steps.get(stepSize-1).getPlayerId()==1){
+            return gson.toJson(players.get(1));
+        }else {
+            return gson.toJson(players.get(0));
+        }
+
+
+    }
+
+    @PostMapping("step")
+    public String step(@RequestParam int playerId, @RequestParam int row, @RequestParam int column){
+        GameTable table= game.getGameTable();
+        Player player;
+        if(playerId==1){
+            player=game.getPlayer1();
+        } else {
+            player=game.getPlayer2();
+        }
+        if(table.getPosition(row,column)!=null){
+            Message message=new Message();
+            message.setType("error");
+            message.setMessage("Ячейка заята, выберити другую!");
+            return gson.toJson(message);
+        }
+
+
+        table.setPosition(row,column,player.getSymbol());
+        steps.add(new GameStep(row,column, player.getName(), player.getSymbol(), player.getId()));
+
+        if(game.getGameTable().searchWinner(player.getSymbol()) || game.getGameTable().Draw()){
+
+            Message message=new Message();
+            if(game.getGameTable().Draw()){
+                message.setType("draw");
+                message.setMessage("Game is Draw!");
+                writeJSON.write(players.get(0), players.get(1), steps,true);
+                steps=new ArrayList<>();
+            }
+            else {
+                message.setType("win");
+                message.setMessage("Player " + player.getName() + " win by symbol " + player.getSymbol());
+
+
+                Player player2;
+                if(player.getId()==1){
+                    player2=players.get(1);
+                }else {
+                    player2=players.get(0);
+                }
+                writeJSON.write(player, player2, steps,false);
+                steps=new ArrayList<>();
+
+            }
+            return gson.toJson(message);
+        }
+
+        return gson.toJson(table.getTableArray());
+
     }
 }

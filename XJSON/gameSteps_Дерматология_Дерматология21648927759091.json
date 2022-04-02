@@ -1,0 +1,45 @@
+{"Gameplay":{
+  "Player": [
+    {
+      "id": 1,
+      "name": "Дерматология",
+      "symbol": "X"
+    },
+    {
+      "id": 1,
+      "name": "Дерматология2",
+      "symbol": "0"
+    }
+  ],
+  "Game": {
+    "Step": [
+      {
+        "num": 1,
+        "playerId": 1,
+        "text": "0 0"
+      },
+      {
+        "num": 2,
+        "playerId": 1,
+        "text": "0 1"
+      },
+      {
+        "num": 3,
+        "playerId": 1,
+        "text": "1 0"
+      },
+      {
+        "num": 4,
+        "playerId": 1,
+        "text": "0 2"
+      }
+    ]
+  },
+  "GameResult": {
+    "Player": {
+      "id": 1,
+      "name": "Дерматология",
+      "symbol": "X"
+    }
+  }
+}}
