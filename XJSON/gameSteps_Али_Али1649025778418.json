@@ -1,0 +1,58 @@
+{"Gameplay":{
+  "Player": [
+    {
+      "id": 2,
+      "name": "Али"
+    },
+    {
+      "id": 2,
+      "name": "Али",
+      "symbol": "X"
+    }
+  ],
+  "Game": {
+    "Step": [
+      {
+        "num": 1,
+        "playerId": 2,
+        "text": "0 0"
+      },
+      {
+        "num": 2,
+        "playerId": 4,
+        "text": "1 1"
+      },
+      {
+        "num": 3,
+        "playerId": 2,
+        "text": "2 2"
+      },
+      {
+        "num": 4,
+        "playerId": 4,
+        "text": "2 1"
+      },
+      {
+        "num": 5,
+        "playerId": 2,
+        "text": "0 1"
+      },
+      {
+        "num": 6,
+        "playerId": 4,
+        "text": "1 0"
+      },
+      {
+        "num": 7,
+        "playerId": 2,
+        "text": "0 2"
+      }
+    ]
+  },
+  "GameResult": {
+    "Player": {
+      "id": 2,
+      "name": "Али"
+    }
+  }
+}}

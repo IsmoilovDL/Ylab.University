@@ -1,0 +1,39 @@
+{"Gameplay":{
+  "Player": [
+    {
+      "id": 4,
+      "name": "Али",
+      "symbol": "0"
+    },
+    {
+      "id": 2,
+      "name": "Дерматология"
+    }
+  ],
+  "Game": {
+    "Step": [
+      {
+        "num": 1,
+        "playerId": 4,
+        "text": "0 0"
+      },
+      {
+        "num": 2,
+        "playerId": 4,
+        "text": "1 1"
+      },
+      {
+        "num": 3,
+        "playerId": 4,
+        "text": "2 2"
+      }
+    ]
+  },
+  "GameResult": {
+    "Player": {
+      "id": 4,
+      "name": "Али",
+      "symbol": "0"
+    }
+  }
+}}

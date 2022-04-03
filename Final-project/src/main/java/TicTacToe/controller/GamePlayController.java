@@ -14,15 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/gameplay")
 @CrossOrigin
-public class GamePlayController {
+public class GamePlayController{
+    @Autowired
+    private RatingRep ratingRep;
+
+    @Autowired
+    private PlayerRep playerRep;
 
     Gson gson=new Gson();
     Game game=new Game();
+
     ArrayList<Player> players=new ArrayList<>();
+    HashMap<Integer, String> pl=new HashMap<>();
     ArrayList<GameStep> steps=new ArrayList<>();
     WriteJSON writeJSON=new WriteJSON();
 
@@ -34,17 +42,21 @@ public class GamePlayController {
     @GetMapping("new")
     public String newGame(){
         game.setGameTable(new GameTable());
-        game.setPlayer1(players.get(0));
-        game.setPlayer2(players.get(1));
+
+        Player p1=playerRep.findById(2).get();
+        game.setPlayer1(p1);
+        players.add(p1);
+        pl.put(p1.getId(),"X");
+
+        Player p2 =playerRep.findById(4).get();
+        game.setPlayer2(p2);
+        players.add(p2);
+        pl.put(p2.getId(),"0");
 
         return gson.toJson(game);
     }
 
-    @Autowired
-    private RatingRep ratingRep;
 
-    @Autowired
-    private PlayerRep playerRep;
 
     @PostMapping("player")
     public String newPlayer(@RequestParam String name){
@@ -54,23 +66,27 @@ public class GamePlayController {
         player.setName(name);
         playerRep.save(player);
 
-        players.add(player);
         return gson.toJson(player);
     }
 
+    //выбрать записи из БД
     @GetMapping("players")
     public String playerSList(){
-        return gson.toJson(players);
+        return gson.toJson(playerRep.findAll());
     }
 
     @GetMapping("/current-step")
     public String currentStep(){
         int stepSize=steps.size();
+
         if(stepSize==0){
             return gson.toJson(players.get(0));
-        }else if(steps.get(stepSize-1).getPlayerId()==1){
+
+        }else if(steps.get(stepSize-1).getPlayerId()==players.get(0).getId()){
+
             return gson.toJson(players.get(1));
         }else {
+
             return gson.toJson(players.get(0));
         }
 
@@ -80,12 +96,11 @@ public class GamePlayController {
     @PostMapping("step")
     public String step(@RequestParam int playerId, @RequestParam int row, @RequestParam int column){
         GameTable table= game.getGameTable();
-        Player player;
-        if(playerId==1){
-            player=game.getPlayer1();
-        } else {
-            player=game.getPlayer2();
-        }
+
+        System.out.println(playerId);
+        Player player =playerRep.findById(playerId).get();
+        System.out.println(player.getId());
+
         if(table.getPosition(row,column)!=null){
             Message message=new Message();
             message.setType("error");
@@ -94,10 +109,11 @@ public class GamePlayController {
         }
 
 
-        table.setPosition(row,column,player.getSymbol());
-        steps.add(new GameStep(row,column, player.getName(), player.getSymbol(), player.getId()));
+        String playerSymbol=pl.get(player.getId());
+        table.setPosition(row,column, playerSymbol);
+        steps.add(new GameStep(row,column, player.getName(), playerSymbol, player.getId()));
 
-        if(game.getGameTable().searchWinner(player.getSymbol()) || game.getGameTable().Draw()){
+        if(game.getGameTable().searchWinner(playerSymbol) || game.getGameTable().Draw()){
 
             Message message=new Message();
             if(game.getGameTable().Draw()){
@@ -108,7 +124,7 @@ public class GamePlayController {
             }
             else {
                 message.setType("win");
-                message.setMessage("Player " + player.getName() + " win by symbol " + player.getSymbol());
+                message.setMessage("Player " + player.getName() + " win by symbol " + playerSymbol);
 
 
                 Player player2;

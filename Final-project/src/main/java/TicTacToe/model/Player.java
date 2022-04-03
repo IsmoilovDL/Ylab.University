@@ -14,7 +14,7 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-//    @Transient
+    @Column(name="symbol")
     private String symbol;
 
     public Player(){}
