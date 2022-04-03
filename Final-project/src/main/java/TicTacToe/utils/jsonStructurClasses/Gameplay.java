@@ -1,7 +1,7 @@
 package TicTacToe.utils.jsonStructurClasses;
 
 import TicTacToe.utils.GameStep;
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 import java.util.ArrayList;
 
 //классы используются для сохранение JSON в нужном выде

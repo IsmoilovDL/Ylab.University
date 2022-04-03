@@ -1,18 +1,24 @@
-package TicTacToe.sevices.player;
+package TicTacToe.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "PLAYER")
 public class Player {
-    private int id=0;
-    private String name;
-    private String symbol;
-    private static int  count=0;
-    public Player(){
-        count++;
-        setId();
-    }
 
-    private void setId(){
-            this.id=count;
-    }
+    @javax.persistence.Id
+    @GeneratedValue
+    @Column(name = "id", nullable = false)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+//    @Transient
+    private String symbol;
+
+    public Player(){}
+
     public void setId(int id){
         this.id=id;
     }

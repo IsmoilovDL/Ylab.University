@@ -1,12 +1,16 @@
 package TicTacToe.controller;
 
+import TicTacToe.model.Rating;
+import TicTacToe.repository.PlayerRep;
+import TicTacToe.repository.RatingRep;
 import TicTacToe.sevices.Game;
 import TicTacToe.sevices.gameLogic.GameTable;
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 import TicTacToe.utils.GameStep;
 import TicTacToe.utils.jsonStructurClasses.Message;
 import TicTacToe.utils.resultIO.WriteJSON;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,10 +40,19 @@ public class GamePlayController {
         return gson.toJson(game);
     }
 
+    @Autowired
+    private RatingRep ratingRep;
+
+    @Autowired
+    private PlayerRep playerRep;
+
     @PostMapping("player")
     public String newPlayer(@RequestParam String name){
+
+        ratingRep.save(new Rating());
         Player player=new Player();
         player.setName(name);
+        playerRep.save(player);
 
         players.add(player);
         return gson.toJson(player);

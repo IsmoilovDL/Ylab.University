@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import TicTacToe.utils.GameStep;
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 import TicTacToe.utils.interfaceIO.Read;
 import TicTacToe.utils.jsonStructurClasses.Gameplay;
 import TicTacToe.utils.jsonStructurClasses.PlayerDeserializer;

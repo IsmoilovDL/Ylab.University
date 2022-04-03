@@ -1,7 +1,7 @@
 package TicTacToe.sevices;
 
 import TicTacToe.sevices.gameLogic.GameTable;
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 
 public class Game {
     private Player player1;

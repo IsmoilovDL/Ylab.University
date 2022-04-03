@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
 import TicTacToe.utils.GameStep;
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 import TicTacToe.utils.interfaceIO.Write;
 import TicTacToe.utils.jsonStructurClasses.Gameplay;
 

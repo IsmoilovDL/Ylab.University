@@ -1,7 +1,7 @@
 package TicTacToe.utils.interfaceIO;
 
 import TicTacToe.utils.GameStep;
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 import java.util.ArrayList;
 
 public interface Write {

@@ -1,6 +1,6 @@
 package TicTacToe.utils.jsonStructurClasses;
 
-import TicTacToe.sevices.player.Player;
+import TicTacToe.model.Player;
 
  public class Winner{
     Player Player;
