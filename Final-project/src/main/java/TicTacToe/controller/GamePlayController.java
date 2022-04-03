@@ -4,6 +4,7 @@ import TicTacToe.model.Rating;
 import TicTacToe.repository.PlayerRep;
 import TicTacToe.repository.RatingRep;
 import TicTacToe.sevices.Game;
+import TicTacToe.sevices.gameLogic.CurrentStep;
 import TicTacToe.sevices.gameLogic.GameTable;
 import TicTacToe.model.Player;
 import TicTacToe.utils.GameStep;
@@ -77,29 +78,15 @@ public class GamePlayController{
 
     @GetMapping("/current-step")
     public String currentStep(){
-        int stepSize=steps.size();
-
-        if(stepSize==0){
-            return gson.toJson(players.get(0));
-
-        }else if(steps.get(stepSize-1).getPlayerId()==players.get(0).getId()){
-
-            return gson.toJson(players.get(1));
-        }else {
-
-            return gson.toJson(players.get(0));
-        }
-
-
+        CurrentStep currentStep=new CurrentStep();
+        return gson.toJson(currentStep.currentStep(steps, players));
     }
 
     @PostMapping("step")
     public String step(@RequestParam int playerId, @RequestParam int row, @RequestParam int column){
         GameTable table= game.getGameTable();
 
-        System.out.println(playerId);
         Player player =playerRep.findById(playerId).get();
-        System.out.println(player.getId());
 
         if(table.getPosition(row,column)!=null){
             Message message=new Message();
@@ -125,6 +112,7 @@ public class GamePlayController{
             else {
                 message.setType("win");
                 message.setMessage("Player " + player.getName() + " win by symbol " + playerSymbol);
+
 
 
                 Player player2;
