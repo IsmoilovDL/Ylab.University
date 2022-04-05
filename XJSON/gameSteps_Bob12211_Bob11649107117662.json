@@ -1,13 +1,12 @@
 {"Gameplay":{
   "Player": [
     {
-      "id": 1,
-      "name": "Pari",
-      "symbol": "X"
+      "id": 2,
+      "name": "Bob12211"
     },
     {
-      "id": 2,
-      "name": "Robert",
+      "id": 4,
+      "name": "Bob1",
       "symbol": "0"
     }
   ],
@@ -15,36 +14,35 @@
     "Step": [
       {
         "num": 1,
-        "playerId": 1,
-        "text": "1 1"
+        "playerId": 2,
+        "text": "0 0"
       },
       {
         "num": 2,
-        "playerId": 2,
-        "text": "1 2"
+        "playerId": 4,
+        "text": "1 1"
       },
       {
         "num": 3,
-        "playerId": 1,
-        "text": "2 1"
+        "playerId": 2,
+        "text": "1 0"
       },
       {
         "num": 4,
-        "playerId": 2,
+        "playerId": 4,
         "text": "2 2"
       },
       {
         "num": 5,
-        "playerId": 1,
-        "text": "3 1"
+        "playerId": 2,
+        "text": "2 0"
       }
     ]
   },
   "GameResult": {
     "Player": {
-      "id": 1,
-      "name": "Pari",
-      "symbol": "X"
+      "id": 2,
+      "name": "Bob12211"
     }
   }
 }}

@@ -2,12 +2,12 @@
   "Player": [
     {
       "id": 2,
-      "name": "Али"
+      "name": "Bob12"
     },
     {
-      "id": 2,
-      "name": "Али",
-      "symbol": "X"
+      "id": 4,
+      "name": "Bob122",
+      "symbol": "0"
     }
   ],
   "Game": {
@@ -15,44 +15,34 @@
       {
         "num": 1,
         "playerId": 2,
-        "text": "0 0"
+        "text": "0 1"
       },
       {
         "num": 2,
         "playerId": 4,
-        "text": "1 1"
+        "text": "0 0"
       },
       {
         "num": 3,
         "playerId": 2,
-        "text": "2 2"
+        "text": "1 1"
       },
       {
         "num": 4,
         "playerId": 4,
-        "text": "2 1"
+        "text": "2 0"
       },
       {
         "num": 5,
         "playerId": 2,
-        "text": "0 1"
-      },
-      {
-        "num": 6,
-        "playerId": 4,
-        "text": "1 0"
-      },
-      {
-        "num": 7,
-        "playerId": 2,
-        "text": "0 2"
+        "text": "2 1"
       }
     ]
   },
   "GameResult": {
     "Player": {
       "id": 2,
-      "name": "Али"
+      "name": "Bob12"
     }
   }
 }}

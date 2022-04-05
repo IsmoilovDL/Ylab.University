@@ -15,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/gameplay")
+@RequestMapping(value = "/gameplay")
 @CrossOrigin
 public class GamePlayController{
     @Autowired
@@ -30,9 +31,24 @@ public class GamePlayController{
     Gson gson=new Gson();
     Game game=new Game();
 
+    /**
+     * список игроков
+     */
     ArrayList<Player> players=new ArrayList<>();
-    HashMap<Integer, String> pl=new HashMap<>();
+
+    /**
+     * HashMap используется для хранения символа игроков
+     */
+    HashMap<Integer, String> playerSymbols =new HashMap<>();
+
+    /**
+     * Список соверщенных ходов в текущей игре
+     */
     ArrayList<GameStep> steps=new ArrayList<>();
+
+    /**
+     * Класс для записи ходов в JSON файл
+     */
     WriteJSON writeJSON=new WriteJSON();
 
     @GetMapping
@@ -43,16 +59,20 @@ public class GamePlayController{
     @GetMapping("new")
     public String newGame(){
         game.setGameTable(new GameTable());
+        ArrayList<Integer> playersId=new ArrayList<>();
+        for (Player player:playerRep.findAll()) {
+            playersId.add(player.getId());
+        }
 
-        Player p1=playerRep.findById(2).get();
+        Player p1=playerRep.findById(playersId.get(0)).get();
         game.setPlayer1(p1);
         players.add(p1);
-        pl.put(p1.getId(),"X");
+        playerSymbols.put(p1.getId(),"X");
 
-        Player p2 =playerRep.findById(4).get();
+        Player p2 =playerRep.findById(playersId.get(1)).get();
         game.setPlayer2(p2);
         players.add(p2);
-        pl.put(p2.getId(),"0");
+        playerSymbols.put(p2.getId(),"0");
 
         return gson.toJson(game);
     }
@@ -60,14 +80,12 @@ public class GamePlayController{
 
 
     @PostMapping("player")
-    public String newPlayer(@RequestParam String name){
-
-        ratingRep.save(new Rating());
+    public void newPlayer(@RequestParam String name){
         Player player=new Player();
         player.setName(name);
+        player.setRating(0);
         playerRep.save(player);
 
-        return gson.toJson(player);
     }
 
     //выбрать записи из БД
@@ -78,57 +96,28 @@ public class GamePlayController{
 
     @GetMapping("/current-step")
     public String currentStep(){
-        CurrentStep currentStep=new CurrentStep();
-        return gson.toJson(currentStep.currentStep(steps, players));
+        return gson.toJson(CurrentStep.currentStep(steps, players));
     }
 
     @PostMapping("step")
     public String step(@RequestParam int playerId, @RequestParam int row, @RequestParam int column){
         GameTable table= game.getGameTable();
-
         Player player =playerRep.findById(playerId).get();
+        String playerSymbol= playerSymbols.get(player.getId());
 
-        if(table.getPosition(row,column)!=null){
-            Message message=new Message();
-            message.setType("error");
-            message.setMessage("Ячейка заята, выберити другую!");
-            return gson.toJson(message);
+        String result =CurrentStep.setStep(playerId, row, column, table, player, playerSymbol,
+                game, steps, players);
+
+        if(result.indexOf("win")!=-1){
+            player.setRating(1);
+            playerRep.save(player);
+            steps=new ArrayList<>();
         }
+        if(result.indexOf("draw")!=-1 ){
 
-
-        String playerSymbol=pl.get(player.getId());
-        table.setPosition(row,column, playerSymbol);
-        steps.add(new GameStep(row,column, player.getName(), playerSymbol, player.getId()));
-
-        if(game.getGameTable().searchWinner(playerSymbol) || game.getGameTable().Draw()){
-
-            Message message=new Message();
-            if(game.getGameTable().Draw()){
-                message.setType("draw");
-                message.setMessage("Game is Draw!");
-                writeJSON.write(players.get(0), players.get(1), steps,true);
-                steps=new ArrayList<>();
-            }
-            else {
-                message.setType("win");
-                message.setMessage("Player " + player.getName() + " win by symbol " + playerSymbol);
-
-
-
-                Player player2;
-                if(player.getId()==1){
-                    player2=players.get(1);
-                }else {
-                    player2=players.get(0);
-                }
-                writeJSON.write(player, player2, steps,false);
-                steps=new ArrayList<>();
-
-            }
-            return gson.toJson(message);
+            steps=new ArrayList<>();
         }
-
-        return gson.toJson(table.getTableArray());
+        return result;
 
     }
 }

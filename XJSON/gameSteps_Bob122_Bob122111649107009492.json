@@ -2,12 +2,11 @@
   "Player": [
     {
       "id": 2,
-      "name": "Али",
-      "symbol": "X"
+      "name": "Bob122"
     },
     {
       "id": 4,
-      "name": "Алиsss",
+      "name": "Bob12211",
       "symbol": "0"
     }
   ],
@@ -16,12 +15,12 @@
       {
         "num": 1,
         "playerId": 2,
-        "text": "0 2"
+        "text": "0 0"
       },
       {
         "num": 2,
         "playerId": 4,
-        "text": "0 0"
+        "text": "1 1"
       },
       {
         "num": 3,
@@ -31,33 +30,19 @@
       {
         "num": 4,
         "playerId": 4,
-        "text": "0 1"
+        "text": "2 1"
       },
       {
         "num": 5,
         "playerId": 2,
-        "text": "1 1"
-      },
-      {
-        "num": 6,
-        "playerId": 4,
-        "text": "1 2"
-      },
-      {
-        "num": 7,
-        "playerId": 2,
-        "text": "2 1"
-      },
-      {
-        "num": 8,
-        "playerId": 4,
         "text": "2 0"
-      },
-      {
-        "num": 9,
-        "playerId": 2,
-        "text": "2 2"
       }
     ]
+  },
+  "GameResult": {
+    "Player": {
+      "id": 2,
+      "name": "Bob122"
+    }
   }
 }}

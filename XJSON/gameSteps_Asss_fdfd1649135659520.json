@@ -2,12 +2,11 @@
   "Player": [
     {
       "id": 1,
-      "name": "Дерматология",
-      "symbol": "X"
+      "name": "Asss"
     },
     {
-      "id": 1,
-      "name": "Дерматология2",
+      "id": 2,
+      "name": "fdfd",
       "symbol": "0"
     }
   ],
@@ -20,8 +19,8 @@
       },
       {
         "num": 2,
-        "playerId": 1,
-        "text": "0 1"
+        "playerId": 2,
+        "text": "1 1"
       },
       {
         "num": 3,
@@ -30,16 +29,20 @@
       },
       {
         "num": 4,
+        "playerId": 2,
+        "text": "2 1"
+      },
+      {
+        "num": 5,
         "playerId": 1,
-        "text": "0 2"
+        "text": "2 0"
       }
     ]
   },
   "GameResult": {
     "Player": {
       "id": 1,
-      "name": "Дерматология",
-      "symbol": "X"
+      "name": "Asss"
     }
   }
 }}

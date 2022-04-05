@@ -1,0 +1,48 @@
+{"Gameplay":{
+  "Player": [
+    {
+      "id": 2,
+      "name": "Bob"
+    },
+    {
+      "id": 4,
+      "name": "Bob2",
+      "symbol": "0"
+    }
+  ],
+  "Game": {
+    "Step": [
+      {
+        "num": 1,
+        "playerId": 2,
+        "text": "2 0"
+      },
+      {
+        "num": 2,
+        "playerId": 4,
+        "text": "1 1"
+      },
+      {
+        "num": 3,
+        "playerId": 2,
+        "text": "2 2"
+      },
+      {
+        "num": 4,
+        "playerId": 4,
+        "text": "1 2"
+      },
+      {
+        "num": 5,
+        "playerId": 2,
+        "text": "2 1"
+      }
+    ]
+  },
+  "GameResult": {
+    "Player": {
+      "id": 2,
+      "name": "Bob"
+    }
+  }
+}}

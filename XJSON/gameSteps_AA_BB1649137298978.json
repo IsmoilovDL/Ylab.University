@@ -2,13 +2,14 @@
   "Player": [
     {
       "id": 1,
-      "name": "Ali",
-      "symbol": "X"
+      "name": "AA",
+      "rating": 0
     },
     {
       "id": 2,
-      "name": "Bob",
-      "symbol": "0"
+      "name": "BB",
+      "symbol": "0",
+      "rating": 0
     }
   ],
   "Game": {
@@ -16,35 +17,35 @@
       {
         "num": 1,
         "playerId": 1,
-        "text": "1 1"
+        "text": "0 0"
       },
       {
         "num": 2,
         "playerId": 2,
-        "text": "1 2"
+        "text": "1 1"
       },
       {
         "num": 3,
         "playerId": 1,
-        "text": "2 1"
+        "text": "1 0"
       },
       {
         "num": 4,
         "playerId": 2,
-        "text": "2 2"
+        "text": "2 1"
       },
       {
         "num": 5,
         "playerId": 1,
-        "text": "3 1"
+        "text": "2 0"
       }
     ]
   },
   "GameResult": {
     "Player": {
       "id": 1,
-      "name": "Ali",
-      "symbol": "X"
+      "name": "AA",
+      "rating": 0
     }
   }
 }}
