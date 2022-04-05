@@ -67,6 +67,17 @@ public class GamePlayController{
         return "Index Page";
     }
 
+    @GetMapping("games")
+    public String gameHistory(){
+        return gson.toJson(gameHistoryRep.findAll());
+    }
+
+    @GetMapping("game")
+    public String gameSteps(@RequestParam int id){
+
+        return gson.toJson(gameHistoryRep.findById(id).get());
+    }
+
     @GetMapping("new")
     public String newGame(){
         game.setGameTable(new GameTable());

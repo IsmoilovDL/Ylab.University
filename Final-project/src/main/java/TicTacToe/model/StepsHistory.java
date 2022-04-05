@@ -1,28 +1,36 @@
 package TicTacToe.model;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Table(name = "STEPS")
 public class StepsHistory {
+    @Expose
     @javax.persistence.Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private int id;
 
+    @Expose
     @Column(name = "position_row")
     private int position_row;
 
+    @Expose
     @Column(name = "position_col")
     private int position_col;
 
+    @Expose
     @Column(name = "step_number")
     private int step_number;
 
+    @Expose
     @Column(name = "symbol")
     private String symbol;
 
+    @Expose
     @Column(name = "player_id")
     private int player_id;
 

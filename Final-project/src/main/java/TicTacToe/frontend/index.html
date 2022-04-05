@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <title> Игра X/O</title>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+   </head>
+
+   <body>
+   <h1>Игра Х/0</h1>
+   <div class="create-block">
+        <div id="players-container">
+            <h4>Список игроков-рейтинг</h4>
+            <div class="item"></div>
+        </div>
+        <div class="form" >
+               <form  method="post" id="creat-player">
+               <label >Имя игрока
+               </label><br>
+                 <input type="text" name="name">
+
+               <input type="submit" value="Создать" class="btn"  id="create">
+               </form>
+            <button id="new-game" class="btn" >Начат игру!</button>
+
+        </div>
+
+       <div class="game">
+           <div>Игрок <span id="current-step"></span> выберы ячейку</div>
+
+           <div id="game-table">
+               <div id="box-1" class="box" data-row="0" data-col="0"></div>
+               <div id="box-2"  class="box" data-row="0" data-col="1"></div>
+               <div id="box-3"  class="box" data-row="0" data-col="2"></div>
+               <div id="box-4"  class="box" data-row="1" data-col="0"></div>
+               <div id="box-5"  class="box" data-row="1" data-col="1"></div>
+               <div id="box-6"  class="box" data-row="1" data-col="2"></div>
+               <div id="box-7"  class="box" data-row="2" data-col="0"></div>
+               <div id="box-8"  class="box" data-row="2" data-col="1"></div>
+               <div id="box-9"  class="box" data-row="2" data-col="2"></div>
+
+           </div>
+
+           <form id="step">
+               <input type="hidden" id="input-id" name="playerId" value="">
+               <input type="hidden" id="input-row" name="row" value="">
+               <input type="hidden" id="input-col" name="column" value="">
+               <input type="submit" id="set-step" class="btn" value="Следующий ход">
+           </form>
+
+           <div class="message"></div>
+       </div>
+
+   </div>
+
+
+   </body>
+
+   <script>
+       $( document ).ready(function() {
+           players();
+           $("#create").click(function (event){
+               event.preventDefault();
+               $.ajax({
+                   url: 'http://localhost:8080/gameplay/player',
+                   type: 'post',
+                   dataType: 'html',
+                   data: $('#creat-player').serialize(),
+                   success: function(data) {
+                       players();
+
+                   }
+               });
+           });
+
+           $("#new-game").click(function (){
+               $("#game-table .box").empty()
+               $.ajax({
+                   url: 'http://localhost:8080/gameplay/new',
+                   type: 'get',
+                   dataType: 'json',
+                   success: function (data) {
+                       tableXO=data['gameTable']['tableXO'];
+                        $("#box-1").append(tableXO[0][0]);
+                        $("#box-2").append(tableXO[0][1]);
+                        $("#box-3").append(tableXO[0][2]);
+
+                        $("#box-4").append(tableXO[1][0]);
+                        $("#box-5").append(tableXO[1][1]);
+                        $("#box-6").append(tableXO[1][2]);
+
+                        $("#box-7").append(tableXO[2][0]);
+                        $("#box-8").append(tableXO[2][1]);
+                        $("#box-9").append(tableXO[2][2]);
+                       currentStep();
+                   }
+               });
+           });
+
+            $("#set-step").click(function (event){
+                event.preventDefault();
+                $.ajax({
+                    url: 'http://localhost:8080/gameplay/step',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $('#step').serialize(),
+                    success: function(data) {
+                        if (data.hasOwnProperty('message')) {
+                            console.log(data['type']);
+                            if(data['type']==="win"){
+                                $(".message").empty();
+                                $(".message").append(data['message']);
+                                players();
+                            }
+                            if(data['type']==="error"){
+                                $(".message").empty();
+                                $(".message").append(data['message']);
+                            }
+                            if(data['type']==="draw"){
+                                $(".message").empty();
+                                $(".message").append(data['message']);
+                            }
+                        }else {
+                            currentStep();
+                            $(".box").empty();
+                            $("#box-1").append(data[0][0]);
+                            $("#box-2").append(data[0][1]);
+                            $("#box-3").append(data[0][2]);
+                            $("#box-4").append(data[1][0]);
+                            $("#box-5").append(data[1][1]);
+                            $("#box-6").append(data[1][2]);
+                            $("#box-7").append(data[2][0]);
+                            $("#box-8").append(data[2][1]);
+                            $("#box-9").append(data[2][2]);
+                        }
+                    }
+                });
+
+            });
+
+            $(".box").click(function (){
+                $(".box").removeClass("active");
+                $(this).addClass("active");
+                row=$(this).data('row');
+                col=$(this).data('col');
+
+                $("#input-row").val(row);
+                $("#input-col").val(col);
+            });
+
+           function players() {
+               $('.item').empty();
+               $.ajax({
+                   url: 'http://localhost:8080/gameplay/players',
+                   type: 'get',
+                   dataType: 'json',
+                   success: function (data) {
+                       for (var key in data) {
+                           $(".item").append("<div class=\"player\">" + data[key]['name'] +'- <span>'+ data[key]['rating']['player_rating']+"</span></div>");
+                       }
+                   }
+               });
+           }
+
+
+
+           function currentStep(){
+               $('#current-step').empty();
+               $.ajax({
+                   url: 'http://localhost:8080/gameplay/current-step',
+                   type: 'get',
+                   dataType: 'json',
+                   success: function (data) {
+                       console.log(data);
+                            $("#current-step").append( data['name'] + " символ "+ data['symbol']);
+                            $("#input-id").val(data['id']);
+                   }
+               });
+           }
+
+
+       });
+   </script>
+
+
+<style media="screen">
+    .rating-container{
+        padding-left: 30px;
+    }
+    .message{
+        color: #fff;
+        height: 50px;
+        background: #458888;
+        margin-top: 15px;
+    }
+    #players-container{
+        width: 300px;
+        background: #cccccc;
+        padding: 30px;
+    }
+    .create-block{
+        display: flex;
+    }
+    .create-block .form{
+        padding: 30px;
+    }
+    .create-block .form input, .create-block .form button{
+        margin-top:20px ;
+    }
+    #game-table{
+        width: 170px;
+    }
+    #game-table .box{
+        width: 50px;
+        height: 50px;
+        background: #a8f3f3;
+        float: left;
+        margin: 3px;
+        text-align: center;
+    }
+    .box.active{
+        background: #458888 !important;
+    }
+    .btn{
+        background: #1c4141;
+        color: #fff;
+        font-weight: bold;
+        padding: 5px 15px 5px 15px;
+        border: solid 1px #cccccc;
+    }
+
+    .player span{margin-left:20px }
+</style>
+
+ </html>

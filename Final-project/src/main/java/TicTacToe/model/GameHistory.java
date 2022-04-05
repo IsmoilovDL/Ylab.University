@@ -1,5 +1,7 @@
 package TicTacToe.model;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,14 +9,18 @@ import java.util.Collection;
 @Table(name = "HISTORY")
 public class GameHistory {
     public GameHistory(){}
+
+    @Expose
     @javax.persistence.Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private int id;
 
+    @Expose
     @Column(name = "player_1")
     private String player1;
 
+    @Expose
     @Column(name = "player_2")
     private String player2;
 
@@ -50,6 +56,7 @@ public class GameHistory {
         this.stepsHistories = stepsHistories;
     }
 
+    @Expose
     @OneToMany(mappedBy = "primaryGame", cascade = CascadeType.ALL)
     private Collection<StepsHistory> stepsHistories;
 }
