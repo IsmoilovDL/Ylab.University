@@ -1,6 +1,8 @@
 package TicTacToe.model;
 
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,24 +12,27 @@ public class Player {
     @javax.persistence.Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
+    @Expose
     private int id;
 
+    @Expose
     @Column(name = "name")
     private String name;
 
+    @Expose
     @Column(name="symbol")
     private String symbol;
 
-    @Column(name="rating")
-    private int rating;
+//    @Column(name="rating")
+//    private int rating;
 
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+//    public int getRating() {
+//        return rating;
+//    }
+//
+//    public void setRating(int rating) {
+//        this.rating = rating;
+//    }
 
     public Player(){}
 
@@ -56,18 +61,18 @@ public class Player {
     }
 
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="rating_id")
-//    private Rating rating;
-//
-//    public Rating getRating() {
-//        return rating;
-//    }
-//
-//
-//    public void setRating(Rating rating) {
-//        this.rating = rating;
-//    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="rating_id")
+    private Rating rating;
+
+    public Rating getRating() {
+        return rating;
+    }
+
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
 
 
 }

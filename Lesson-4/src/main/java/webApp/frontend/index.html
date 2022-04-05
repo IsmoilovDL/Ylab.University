@@ -197,6 +197,7 @@
                    type: 'get',
                    dataType: 'json',
                    success: function (data) {
+                       console.log(data);
                             $("#current-step").append( data['name'] + " символ "+ data['symbol']);
                             $("#input-id").val(data['id']);
                    }

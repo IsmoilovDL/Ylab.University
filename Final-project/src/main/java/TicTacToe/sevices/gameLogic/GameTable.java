@@ -1,6 +1,9 @@
 package TicTacToe.sevices.gameLogic;
 
+import com.google.gson.annotations.Expose;
+
 public class GameTable {
+    @Expose
     private String[][] tableXO=new String[3][3];
 
     public String[][] getTableArray(){

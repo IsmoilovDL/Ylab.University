@@ -2,11 +2,16 @@ package TicTacToe.sevices;
 
 import TicTacToe.sevices.gameLogic.GameTable;
 import TicTacToe.model.Player;
+import com.google.gson.annotations.Expose;
 
 public class Game {
+    @Expose
     private Player player1;
+    @Expose
     private Player player2;
+    @Expose
     private GameTable gameTable;
+    @Expose
     private int id;
 
     public Game(){
@@ -25,7 +30,6 @@ public class Game {
         player1.setSymbol("X");
         this.player1 = player1;
     }
-
     public Player getPlayer2() {
         return player2;
     }

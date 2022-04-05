@@ -19,7 +19,7 @@ public class Rating {
     public Rating() {
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -38,15 +38,15 @@ public class Rating {
 
 
 
-//    @OneToOne(mappedBy="rating", cascade = CascadeType.ALL)
-//    public Player player;
-//
-//    public Player getPlayer() {
-//        return player;
-//    }
-//
-//    public void setPlayer(Player player) {
-//        this.player = player;
-//    }
+    @OneToOne(mappedBy="rating", cascade = CascadeType.ALL)
+    public Player player;
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
 }

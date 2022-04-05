@@ -9,6 +9,7 @@ import TicTacToe.utils.GameStep;
 import TicTacToe.utils.jsonStructurClasses.Message;
 import TicTacToe.utils.resultIO.WriteJSON;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class CurrentStep {
     /**
      * Класс для записи ходов в JSON файл
      */
-    static WriteJSON writeJSON=new WriteJSON();
-    static Gson gson=new Gson();
+//    static WriteJSON writeJSON=new WriteJSON();
+    static Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
 
     /**
@@ -76,7 +77,7 @@ public class CurrentStep {
             if(game.getGameTable().Draw()){
                 message.setType("draw");
                 message.setMessage("Game is Draw!");
-                writeJSON.write(players.get(0), players.get(1), steps,true);
+//                writeJSON.write(players.get(0), players.get(1), steps,true);
             }
             else {
                 message.setType("win");
@@ -90,7 +91,7 @@ public class CurrentStep {
                 }else {
                     player2=players.get(0);
                 }
-                writeJSON.write(player, player2, steps,false);
+//                writeJSON.write(player, player2, steps,false);
 
             }
             return gson.toJson(message);

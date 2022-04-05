@@ -1,7 +1,11 @@
 package TicTacToe.utils.jsonStructurClasses;
 
+import com.google.gson.annotations.Expose;
+
 public class Message {
+    @Expose
     private String message;
+    @Expose
     private String type;
 
     public String getType() {

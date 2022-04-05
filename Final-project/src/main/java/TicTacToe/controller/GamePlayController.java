@@ -11,6 +11,7 @@ import TicTacToe.utils.GameStep;
 import TicTacToe.utils.jsonStructurClasses.Message;
 import TicTacToe.utils.resultIO.WriteJSON;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class GamePlayController{
     @Autowired
     private PlayerRep playerRep;
 
-    Gson gson=new Gson();
+    Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
     Game game=new Game();
 
     /**
@@ -83,7 +84,9 @@ public class GamePlayController{
     public void newPlayer(@RequestParam String name){
         Player player=new Player();
         player.setName(name);
-        player.setRating(0);
+        Rating rating=new Rating();
+        rating.setPlayer_rating(0);
+        player.setRating(rating);
         playerRep.save(player);
 
     }
@@ -91,6 +94,7 @@ public class GamePlayController{
     //выбрать записи из БД
     @GetMapping("players")
     public String playerSList(){
+        System.out.println(gson.toJson(playerRep.findAll()));
         return gson.toJson(playerRep.findAll());
     }
 
@@ -109,7 +113,11 @@ public class GamePlayController{
                 game, steps, players);
 
         if(result.indexOf("win")!=-1){
-            player.setRating(1);
+           int currentRating= player.getRating().getPlayer_rating();
+           Rating rating=new Rating();
+           rating.setId(player.getRating().getId());
+           rating.setPlayer_rating(currentRating+2);
+           player.setRating(rating);
             playerRep.save(player);
             steps=new ArrayList<>();
         }
