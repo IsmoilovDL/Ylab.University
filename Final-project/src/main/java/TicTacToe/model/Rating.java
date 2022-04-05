@@ -1,5 +1,7 @@
 package TicTacToe.model;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,7 @@ public class Rating {
     @Column(name = "id", nullable = false)
     private int id;
 
+    @Expose
     @Column(name = "player_rating")
     private int player_rating;
 

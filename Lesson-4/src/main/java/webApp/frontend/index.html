@@ -10,7 +10,7 @@
    <h1>Игра Х/0</h1>
    <div class="create-block">
         <div id="players-container">
-            <h4>Список игроков</h4>
+            <h4>Список игроков-рейтинг</h4>
             <div class="item"></div>
         </div>
         <div class="form" >
@@ -50,10 +50,7 @@
 
            <div class="message"></div>
        </div>
-       <div class="rating-container">
-<h4>Рейтинг игроков:</h4>
-           <div class="rating"></div>
-       </div>
+
    </div>
 
    
@@ -72,7 +69,6 @@
    <script>
        $( document ).ready(function() {
            players();
-           rating();
            $("#create").click(function (event){
                event.preventDefault();
                $.ajax({
@@ -124,7 +120,7 @@
                             if(data['type']==="win"){
                                 $(".message").empty();
                                 $(".message").append(data['message']);
-                                rating();
+                                players();
                             }
                             if(data['type']==="error"){
                                 $(".message").empty();
@@ -170,25 +166,13 @@
                    dataType: 'json',
                    success: function (data) {
                        for (var key in data) {
-                           $(".item").append("<div class=\"player\">" + data[key]['name'] + "</div>");
+                           $(".item").append("<div class=\"player\">" + data[key]['name'] +'- <span>'+ data[key]['rating']['player_rating']+"</span></div>");
                        }
                    }
                });
            }
 
-           function rating() {
-               $('.rating').empty();
-               $.ajax({
-                   url: 'http://localhost:8080/gameplay/rating',
-                   type: 'get',
-                   dataType: 'json',
-                   success: function (data) {
-                       for (var key in data) {
-                           $(".rating").append("<div >" + key+" - " +data[key]+"</div>");
-                       }
-                   }
-               });
-           }
+
 
            function currentStep(){
                $('#current-step').empty();
@@ -254,6 +238,8 @@
         padding: 5px 15px 5px 15px;
         border: solid 1px #cccccc;
     }
+
+    .player span{margin-left:20px }
 </style>
 
  </html>

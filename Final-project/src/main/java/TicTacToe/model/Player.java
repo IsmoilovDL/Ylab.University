@@ -20,19 +20,9 @@ public class Player {
     private String name;
 
     @Expose
-    @Column(name="symbol")
+    @Transient
     private String symbol;
 
-//    @Column(name="rating")
-//    private int rating;
-
-//    public int getRating() {
-//        return rating;
-//    }
-//
-//    public void setRating(int rating) {
-//        this.rating = rating;
-//    }
 
     public Player(){}
 
@@ -60,7 +50,7 @@ public class Player {
         return this.symbol;
     }
 
-
+    @Expose
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="rating_id")
     private Rating rating;
