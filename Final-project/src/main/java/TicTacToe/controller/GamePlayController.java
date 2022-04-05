@@ -1,6 +1,8 @@
 package TicTacToe.controller;
 
+import TicTacToe.model.GameHistory;
 import TicTacToe.model.Rating;
+import TicTacToe.model.StepsHistory;
 import TicTacToe.repository.GameHistoryRep;
 import TicTacToe.repository.PlayerRep;
 import TicTacToe.repository.RatingRep;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 @RestController
@@ -34,6 +37,7 @@ public class GamePlayController{
 
     @Autowired
     private StepsHistoryRep stepsHistoryRep;
+
 
     Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
     Game game=new Game();
@@ -97,10 +101,8 @@ public class GamePlayController{
 
     }
 
-    //выбрать записи из БД
     @GetMapping("players")
     public String playerSList(){
-        System.out.println(gson.toJson(playerRep.findAll()));
         return gson.toJson(playerRep.findAll());
     }
 
@@ -124,14 +126,48 @@ public class GamePlayController{
            rating.setId(player.getRating().getId());
            rating.setPlayer_rating(currentRating+2);
            player.setRating(rating);
-            playerRep.save(player);
-            steps=new ArrayList<>();
+           playerRep.save(player);
+
+
+            SaveSteps(players.get(0).getName(), players.get(1).getName(), steps);
+
+           steps=new ArrayList<>();
+
         }
         if(result.indexOf("draw")!=-1 ){
-
             steps=new ArrayList<>();
         }
         return result;
 
+    }
+
+
+    /**
+     * Сохраняет историю игры
+     * @param playerOneName игрок 1
+     * @param playerTwoName игрок 2
+     * @param stepsList список ходов игры тип ArrayList<GameStep>
+     */
+    private void SaveSteps(String playerOneName, String playerTwoName, ArrayList<GameStep> stepsList){
+
+        Collection<StepsHistory> collection=new ArrayList<>();
+        GameHistory gameHistory=new GameHistory();
+        int count = 0;
+
+        for (GameStep item:stepsList) {
+            StepsHistory stepsHistory=new StepsHistory();
+            stepsHistory.setPlayer_id(item.getPlayerId());
+            stepsHistory.setPosition_col(item.getColumn());
+            stepsHistory.setPosition_row(item.getRow());
+            stepsHistory.setStep_number(++count);
+            stepsHistory.setSymbol(item.getSymbol());
+            stepsHistory.setPrimaryGame(gameHistory);
+            collection.add(stepsHistory);
+        }
+        gameHistory.setStepsHistories(collection);
+        gameHistory.setPlayer1(playerOneName);
+        gameHistory.setPlayer2(playerTwoName);
+
+        gameHistoryRep.save(gameHistory);
     }
 }

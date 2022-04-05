@@ -1,9 +1,7 @@
 package TicTacToe.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "HISTORY")
@@ -43,4 +41,15 @@ public class GameHistory {
     public void setPlayer2(String player2) {
         this.player2 = player2;
     }
+
+    public Collection<StepsHistory> getStepsHistories() {
+        return stepsHistories;
+    }
+
+    public void setStepsHistories(Collection<StepsHistory> stepsHistories) {
+        this.stepsHistories = stepsHistories;
+    }
+
+    @OneToMany(mappedBy = "primaryGame", cascade = CascadeType.ALL)
+    private Collection<StepsHistory> stepsHistories;
 }
