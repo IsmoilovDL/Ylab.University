@@ -1,14 +1,15 @@
 package TicTacToe.controller;
 
 import TicTacToe.model.Rating;
+import TicTacToe.repository.GameHistoryRep;
 import TicTacToe.repository.PlayerRep;
 import TicTacToe.repository.RatingRep;
+import TicTacToe.repository.StepsHistoryRep;
 import TicTacToe.sevices.Game;
 import TicTacToe.sevices.gameLogic.CurrentStep;
 import TicTacToe.sevices.gameLogic.GameTable;
 import TicTacToe.model.Player;
 import TicTacToe.utils.GameStep;
-import TicTacToe.utils.jsonStructurClasses.Message;
 import TicTacToe.utils.resultIO.WriteJSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 @RestController
@@ -28,6 +28,12 @@ public class GamePlayController{
 
     @Autowired
     private PlayerRep playerRep;
+
+    @Autowired
+    private GameHistoryRep gameHistoryRep;
+
+    @Autowired
+    private StepsHistoryRep stepsHistoryRep;
 
     Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
     Game game=new Game();
